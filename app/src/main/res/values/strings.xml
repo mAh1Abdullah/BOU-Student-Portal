@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BOU Student Portal</string>
+    <string name="title_home">Home</string>
+    <string name="title_portal">OSAPS Portal</string>
+    <string name="title_calculator">Marks Calculator</string>
+    <string name="title_support">Support &amp; Help</string>
+</resources>

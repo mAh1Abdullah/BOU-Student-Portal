@@ -1,0 +1,6 @@
+{
+  "name": "BOU Student Portal",
+  "description": "Quick access student portal for Bangladesh Open University (BOU) with OSAPS login, admission notice, exam results, marks calculation system, and technical support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
