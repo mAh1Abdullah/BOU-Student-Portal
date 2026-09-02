@@ -190,7 +190,7 @@ private fun HeroHeaderCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(26.dp))
-            .border(1.dp, Color(0xFF34D399).copy(alpha = 0.35f), RoundedCornerShape(26.dp)),
+            .border(1.2.dp, Color(0xFFA3D9B5).copy(alpha = 0.45f), RoundedCornerShape(26.dp)),
         shape = RoundedCornerShape(26.dp),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
@@ -201,9 +201,9 @@ private fun HeroHeaderCard(
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(
-                            Color(0xFF004D40),
-                            Color(0xFF00695C),
-                            Color(0xFF00796B)
+                            Color(0xFF004D36), // BOU Deep Emerald Green
+                            Color(0xFF006A4E), // Official BOU Green
+                            Color(0xFF0B2545)  // BOU Official Navy Blue
                         )
                     )
                 )
@@ -231,7 +231,7 @@ private fun HeroHeaderCard(
                             Text(
                                 text = "বাংলাদেশ উন্মুক্ত বিশ্ববিদ্যালয়",
                                 style = MaterialTheme.typography.bodySmall,
-                                color = Color(0xFFFFE082),
+                                color = Color(0xFFFFB300),
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 12.sp
                             )
@@ -241,7 +241,7 @@ private fun HeroHeaderCard(
                     Surface(
                         color = Color.White.copy(alpha = 0.18f),
                         shape = RoundedCornerShape(20.dp),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF34D399).copy(alpha = 0.4f))
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFB300).copy(alpha = 0.6f))
                     ) {
                         Row(
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -277,7 +277,7 @@ private fun HeroHeaderCard(
                 Text(
                     text = "Instant 1-tap gateway to OSAPS student profile, online admissions, examination routines, result marksheets & GPA calculator.",
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color.White.copy(alpha = 0.8f),
+                    color = Color.White.copy(alpha = 0.85f),
                     fontSize = 11.sp,
                     lineHeight = 15.sp,
                     modifier = Modifier.padding(top = 4.dp)
@@ -294,9 +294,9 @@ private fun HeroHeaderCard(
                             .weight(1f)
                             .clip(RoundedCornerShape(12.dp))
                             .clickable(onClick = onQuickCalculator),
-                        color = Color.White.copy(alpha = 0.15f),
+                        color = Color.White.copy(alpha = 0.16f),
                         shape = RoundedCornerShape(12.dp),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.25f))
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.3f))
                     ) {
                         Row(
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
@@ -306,7 +306,7 @@ private fun HeroHeaderCard(
                             Icon(
                                 imageVector = Icons.Default.Calculate,
                                 contentDescription = null,
-                                tint = Color(0xFFFFD54F),
+                                tint = Color(0xFFFFB300),
                                 modifier = Modifier.size(18.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
@@ -325,9 +325,9 @@ private fun HeroHeaderCard(
                             .weight(1f)
                             .clip(RoundedCornerShape(12.dp))
                             .clickable(onClick = onQuickSupport),
-                        color = Color.White.copy(alpha = 0.15f),
+                        color = Color.White.copy(alpha = 0.16f),
                         shape = RoundedCornerShape(12.dp),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.25f))
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.3f))
                     ) {
                         Row(
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
@@ -337,7 +337,7 @@ private fun HeroHeaderCard(
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.Help,
                                 contentDescription = null,
-                                tint = Color(0xFF80DEEA),
+                                tint = Color(0xFF90CAF9),
                                 modifier = Modifier.size(18.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))

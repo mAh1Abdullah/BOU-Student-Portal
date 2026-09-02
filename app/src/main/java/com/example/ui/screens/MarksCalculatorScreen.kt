@@ -444,7 +444,7 @@ private fun GpaScoreDisplayCard(
                 .fillMaxWidth()
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(BouPrimary, Color(0xFF004D40))
+                        colors = listOf(BouPrimary, Color(0xFF004D36))
                     )
                 )
                 .padding(20.dp)
@@ -465,7 +465,7 @@ private fun GpaScoreDisplayCard(
                         Text(
                             text = "BOU Grading Standard (${maxGpa} Scale)",
                             style = MaterialTheme.typography.bodySmall,
-                            color = Color(0xFFFFD54F)
+                            color = Color(0xFFFFB300)
                         )
                     }
 
@@ -510,7 +510,7 @@ private fun GpaScoreDisplayCard(
                             text = state.result.classification,
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFFFFD54F)
+                            color = Color(0xFFFFB300)
                         )
                     }
 
@@ -557,7 +557,7 @@ private fun GpaScoreDisplayCard(
                     Button(
                         onClick = onSave,
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFFFFD54F),
+                            containerColor = Color(0xFFFFB300),
                             contentColor = Color(0xFF00251A)
                         ),
                         shape = RoundedCornerShape(10.dp),

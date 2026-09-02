@@ -4,7 +4,18 @@ data class SupportHotline(
     val title: String,
     val number: String,
     val description: String,
-    val availability: String
+    val availability: String,
+    val category: String = "Helpline"
+)
+
+data class AdministrativeContact(
+    val name: String,
+    val designation: String,
+    val organization: String,
+    val address: String,
+    val phones: List<String>,
+    val email: String,
+    val website: String
 )
 
 data class RegionalCenter(
@@ -25,37 +36,80 @@ data class FaqItem(
 )
 
 object SupportData {
-    val CENTRAL_HOTLINES = listOf(
+    // Primary Help Line
+    val PRIMARY_HELPLINES = listOf(
         SupportHotline(
-            title = "OSAPS Support Desk 1",
-            number = "01635-020191",
-            description = "Student login, password recovery & profile issues",
-            availability = "Sat - Thu: 9:00 AM - 5:00 PM"
+            title = "Helpline Mobile 1",
+            number = "01618977237",
+            description = "OSAPS student profile, login & system help",
+            availability = "During office hours only (without holidays)",
+            category = "Helpline"
         ),
         SupportHotline(
-            title = "OSAPS Support Desk 2",
-            number = "01911-390048",
-            description = "Online admission form submission & payment verification",
-            availability = "Sat - Thu: 9:00 AM - 5:00 PM"
-        ),
-        SupportHotline(
-            title = "OSAPS Support Desk 3",
-            number = "01712-680456",
-            description = "Technical glitch, SMS confirmation & ID card queries",
-            availability = "Sat - Thu: 9:00 AM - 5:00 PM"
-        ),
-        SupportHotline(
-            title = "BOU Central Helpline",
-            number = "02-996691120",
-            description = "Main campus Gazipur PABX operator & general queries",
-            availability = "Sun - Thu: 9:00 AM - 4:00 PM"
+            title = "Helpline Mobile 2",
+            number = "01907451612",
+            description = "Technical support & payment validation",
+            availability = "During office hours only (without holidays)",
+            category = "Helpline"
         )
     )
 
+    // For Admission & Registration
+    val ADMISSION_REGISTRATION_CONTACTS = listOf(
+        SupportHotline(
+            title = "Student Support Service (Mobile)",
+            number = "01540-770957",
+            description = "Admission guidance, registration & student affairs",
+            availability = "During office hours only (without holidays)",
+            category = "Admission & Registration"
+        ),
+        SupportHotline(
+            title = "Student Support Service (Phone)",
+            number = "02996691175",
+            description = "Landline desk for registration & program queries",
+            availability = "During office hours only (without holidays)",
+            category = "Admission & Registration"
+        ),
+        SupportHotline(
+            title = "ICT Unit (OSAPS) - Line 1",
+            number = "01618977237",
+            description = "Online admission portal & system assistance",
+            availability = "During office hours only (without holidays)",
+            category = "ICT Unit"
+        ),
+        SupportHotline(
+            title = "ICT Unit (OSAPS) - Line 2",
+            number = "01907451612",
+            description = "OSAPS portal, technical & payment queries",
+            availability = "During office hours only (without holidays)",
+            category = "ICT Unit"
+        ),
+        SupportHotline(
+            title = "Examination & Certificate",
+            number = "01758931163",
+            description = "Exam routine, result scrutiny & certificate release",
+            availability = "During office hours only (without holidays)",
+            category = "Exam & Certificate"
+        )
+    )
+
+    // Administrative Contact
+    val ADMIN_CONTACT = AdministrativeContact(
+        name = "T M Ahmed Hussain",
+        designation = "Registrar (In Charge)",
+        organization = "Bangladesh Open University",
+        address = "Board Bazar, Gazipur-1705, Bangladesh",
+        phones = listOf("88-02996691112", "09666730730 Ex.105"),
+        email = "registrar@bou.ac.bd",
+        website = "www.bou.ac.bd"
+    )
+
+    val CENTRAL_HOTLINES = PRIMARY_HELPLINES + ADMISSION_REGISTRATION_CONTACTS
+
     val CENTRAL_EMAILS = listOf(
-        "osaps@bou.ac.bd" to "OSAPS Technical Helpdesk",
-        "helpdesk@bou.ac.bd" to "BOU Student Support Services",
-        "info@bou.ac.bd" to "General Information & Registry",
+        "help.osaps@bou.ac.bd" to "OSAPS Technical Helpdesk (Primary)",
+        "registrar@bou.ac.bd" to "Office of the Registrar",
+        "info@bou.ac.bd" to "General University Information",
         "controller@bou.ac.bd" to "Office of the Controller of Examinations"
     )
 
@@ -162,7 +216,7 @@ object SupportData {
             id = "faq_2",
             question = "Payment completed via bKash/Nagad/Rocket but status still Pending?",
             questionBengali = "বিকাশ/নগদ/রকেটে ফি প্রদান করেছি কিন্তু স্ট্যাটাস পেন্ডিং দেখাচ্ছে?",
-            answer = "Usually payment updates within 15-30 minutes. If it stays pending for over 24 hours, take a screenshot of your payment Transaction ID (TrxID) and send an email to osaps@bou.ac.bd or call the OSAPS technical support hotline.",
+            answer = "Usually payment updates within 15-30 minutes. If it stays pending for over 24 hours, take a screenshot of your payment Transaction ID (TrxID) and send an email to help.osaps@bou.ac.bd or call the OSAPS helpline (01618977237, 01907451612).",
             category = "Payment"
         ),
         FaqItem(
@@ -176,7 +230,7 @@ object SupportData {
             id = "faq_4",
             question = "How is BOU CGPA calculated?",
             questionBengali = "বাউবি-র সিজিপিএ কিভাবে হিসাব করা হয়?",
-            answer = "BOU uses a 4.00 Grade Point scale for Undergraduate and Masters programs. Grade Point Average (GPA) = Sum of (Course Grade Point x Course Credits) / Total Credits. You can use the built-in 'Marks Calculator' in this app to compute your term GPA and cumulative CGPA instantly!",
+            answer = "BOU calculates results on a standard 4.00 point grading scale. CGPA = Sum of (Course Grade Point x Course Credits) / Total Credits. You can use the built-in 'Marks Calculation' tool in this app to compute your term GPA and cumulative CGPA instantly!",
             category = "Grading & Results"
         ),
         FaqItem(

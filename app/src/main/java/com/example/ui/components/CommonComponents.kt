@@ -67,10 +67,10 @@ fun UniversityLogoEmblem(
             .clip(CircleShape)
             .background(
                 brush = Brush.linearGradient(
-                    colors = listOf(BouPrimary, Color(0xFF004D40))
+                    colors = listOf(BouPrimary, Color(0xFF004D36))
                 )
             )
-            .border(1.5.dp, Color(0xFFFFD54F), CircleShape),
+            .border(1.5.dp, Color(0xFFFFB300), CircleShape),
         contentAlignment = Alignment.Center
     ) {
         Icon(
@@ -88,25 +88,25 @@ fun PortalIconButtonCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Dynamic Bento tinting per destination
+    // Dynamic Bento tinting aligned with BOU official website palette
     val (bentoBg, bentoBorder, iconBg, iconColor) = when (destination.id) {
-        "student_profile" -> QuadColor(Color(0xFFE8F5E9), Color(0xFFA5D6A7), Color(0xFFC8E6C9), Color(0xFF1B5E20))
-        "bou_home" -> QuadColor(Color(0xFFE0F2F1), Color(0xFF80CBC4), Color(0xFFB2DFDB), Color(0xFF00695C))
-        "result_page" -> QuadColor(Color(0xFFE1F5FE), Color(0xFF90CAF9), Color(0xFFB3E5FC), Color(0xFF0277BD))
-        "notice_board" -> QuadColor(Color(0xFFE8EAF6), Color(0xFFC5CAE9), Color(0xFFD1C4E9), Color(0xFF283593))
-        "online_admission" -> QuadColor(Color(0xFFFFF8E1), Color(0xFFFFE082), Color(0xFFFFECB3), Color(0xFFE65100))
-        "student_handbook" -> QuadColor(Color(0xFFFFF3E0), Color(0xFFFFCC80), Color(0xFFFFE0B2), Color(0xFFEF6C00))
-        "ebook_library" -> QuadColor(Color(0xFFEDE7F6), Color(0xFFB39DDB), Color(0xFFD1C4E9), Color(0xFF512DA8))
-        "marks_calculator" -> QuadColor(Color(0xFFF3E5F5), Color(0xFFCE93D8), Color(0xFFE1BEE7), Color(0xFF6A1B9A))
-        "contact_support" -> QuadColor(Color(0xFFFFEBEE), Color(0xFFFFCDD2), Color(0xFFFFCDD2), Color(0xFFC2185B))
-        else -> QuadColor(Color(0xFFF0FDF4), Color(0xFFBBF7D0), Color(0xFFDCFCE7), Color(0xFF15803D))
+        "student_profile" -> QuadColor(Color(0xFFE6F4EA), Color(0xFFA3D9B5), Color(0xFFC8E6C9), Color(0xFF006A4E))
+        "bou_home" -> QuadColor(Color(0xFFEBF1F7), Color(0xFFA6C4E0), Color(0xFFD0E1F9), Color(0xFF0B2545))
+        "result_page" -> QuadColor(Color(0xFFE0F2FE), Color(0xFF7DD3FC), Color(0xFFBAE6FD), Color(0xFF0369A1))
+        "notice_board" -> QuadColor(Color(0xFFFFEBEE), Color(0xFFFFCDD2), Color(0xFFFFCDD2), Color(0xFFC62828))
+        "online_admission" -> QuadColor(Color(0xFFFFF8E1), Color(0xFFFFE082), Color(0xFFFFECB3), Color(0xFFB45309))
+        "student_handbook" -> QuadColor(Color(0xFFE0F2F1), Color(0xFF80CBC4), Color(0xFFB2DFDB), Color(0xFF006A4E))
+        "ebook_library" -> QuadColor(Color(0xFFF3E8FF), Color(0xFFD8B4FE), Color(0xFFE9D5FF), Color(0xFF6B21A8))
+        "marks_calculator" -> QuadColor(Color(0xFFEDE7F6), Color(0xFFB39DDB), Color(0xFFD1C4E9), Color(0xFF4527A0))
+        "contact_support" -> QuadColor(Color(0xFFFFEBEE), Color(0xFFFFCDD2), Color(0xFFFFCDD2), Color(0xFFC62828))
+        else -> QuadColor(Color(0xFFE6F4EA), Color(0xFFA3D9B5), Color(0xFFC8E6C9), Color(0xFF006A4E))
     }
 
     Card(
         modifier = modifier
             .testTag("portal_btn_${destination.id}")
             .clip(RoundedCornerShape(22.dp))
-            .border(1.2.dp, bentoBorder.copy(alpha = 0.8f), RoundedCornerShape(22.dp))
+            .border(1.2.dp, bentoBorder.copy(alpha = 0.85f), RoundedCornerShape(22.dp))
             .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(
             containerColor = bentoBg
@@ -131,7 +131,7 @@ fun PortalIconButtonCard(
                         .size(46.dp)
                         .clip(RoundedCornerShape(14.dp))
                         .background(iconBg)
-                        .border(1.dp, bentoBorder.copy(alpha = 0.5f), RoundedCornerShape(14.dp)),
+                        .border(1.dp, bentoBorder.copy(alpha = 0.6f), RoundedCornerShape(14.dp)),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -146,7 +146,7 @@ fun PortalIconButtonCard(
                     Surface(
                         color = iconBg,
                         shape = RoundedCornerShape(10.dp),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, bentoBorder.copy(alpha = 0.6f))
+                        border = androidx.compose.foundation.BorderStroke(1.dp, bentoBorder.copy(alpha = 0.7f))
                     ) {
                         Text(
                             text = badgeText,
@@ -214,10 +214,10 @@ fun StudentProfileBanner(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(24.dp))
-            .border(1.5.dp, Color(0xFFA7F3D0), RoundedCornerShape(24.dp)),
+            .border(1.5.dp, Color(0xFFA3D9B5), RoundedCornerShape(24.dp)),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFECFDF5)
+            containerColor = Color(0xFFE6F4EA)
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
@@ -234,7 +234,7 @@ fun StudentProfileBanner(
                         modifier = Modifier
                             .size(42.dp)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(Color(0xFF059669)),
+                            .background(Color(0xFF006A4E)),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
@@ -251,16 +251,16 @@ fun StudentProfileBanner(
                                 text = "Student OSAPS Profile",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = Color(0xFF064E3B)
+                                color = Color(0xFF004D36)
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                             Surface(
-                                color = Color(0xFFD1FAE5),
+                                color = Color(0xFFD1E7DD),
                                 shape = RoundedCornerShape(6.dp)
                             ) {
                                 Text(
                                     text = "Active",
-                                    color = Color(0xFF047857),
+                                    color = Color(0xFF006A4E),
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
@@ -270,7 +270,7 @@ fun StudentProfileBanner(
                         Text(
                             text = "osapsnew.bou.ac.bd",
                             style = MaterialTheme.typography.bodySmall,
-                            color = Color(0xFF059669),
+                            color = Color(0xFF006A4E),
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Medium
                         )
@@ -280,7 +280,7 @@ fun StudentProfileBanner(
                 Surface(
                     color = Color.White,
                     shape = RoundedCornerShape(10.dp),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFA7F3D0)),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFA3D9B5)),
                     modifier = Modifier.size(36.dp)
                 ) {
                     IconButton(
@@ -290,7 +290,7 @@ fun StudentProfileBanner(
                         Icon(
                             imageVector = Icons.Default.Edit,
                             contentDescription = "Edit Profile Info",
-                            tint = Color(0xFF059669),
+                            tint = Color(0xFF006A4E),
                             modifier = Modifier.size(18.dp)
                         )
                     }
@@ -303,7 +303,7 @@ fun StudentProfileBanner(
                 Surface(
                     color = Color.White,
                     shape = RoundedCornerShape(14.dp),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFA7F3D0)),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFA3D9B5)),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
@@ -332,7 +332,7 @@ fun StudentProfileBanner(
                                 Text(
                                     text = credential.programName,
                                     style = MaterialTheme.typography.bodySmall,
-                                    color = Color(0xFF059669),
+                                    color = Color(0xFF006A4E),
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.SemiBold
                                 )
@@ -340,9 +340,9 @@ fun StudentProfileBanner(
                         }
 
                         Surface(
-                            color = Color(0xFFF0FDF4),
+                            color = Color(0xFFE6F4EA),
                             shape = RoundedCornerShape(8.dp),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFA7F3D0))
+                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFA3D9B5))
                         ) {
                             IconButton(
                                 onClick = onCopyId,
@@ -351,7 +351,7 @@ fun StudentProfileBanner(
                                 Icon(
                                     imageVector = Icons.Default.ContentCopy,
                                     contentDescription = "Copy Student ID",
-                                    tint = Color(0xFF059669),
+                                    tint = Color(0xFF006A4E),
                                     modifier = Modifier.size(18.dp)
                                 )
                             }
@@ -360,14 +360,14 @@ fun StudentProfileBanner(
                 }
             } else {
                 Surface(
-                    color = Color.White.copy(alpha = 0.7f),
+                    color = Color.White.copy(alpha = 0.85f),
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = "Save your Student ID & Program details for 1-tap autofill & quick access during OSAPS login.",
                         style = MaterialTheme.typography.bodySmall,
-                        color = Color(0xFF065F46),
+                        color = Color(0xFF004D36),
                         modifier = Modifier.padding(12.dp),
                         fontSize = 12.sp,
                         lineHeight = 16.sp
@@ -389,7 +389,7 @@ fun StudentProfileBanner(
                         .testTag("btn_quick_osaps_login"),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF059669)
+                        containerColor = Color(0xFF006A4E)
                     )
                 ) {
                     Text(
@@ -411,9 +411,9 @@ fun StudentProfileBanner(
                         modifier = Modifier.height(44.dp),
                         shape = RoundedCornerShape(12.dp),
                         colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = Color(0xFF059669)
+                            contentColor = Color(0xFF006A4E)
                         ),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF059669))
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF006A4E))
                     ) {
                         Text("Add My ID", fontSize = 13.sp, fontWeight = FontWeight.Bold)
                     }

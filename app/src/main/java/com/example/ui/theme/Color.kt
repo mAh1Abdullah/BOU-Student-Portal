@@ -2,77 +2,85 @@ package com.example.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val BouPrimary = Color(0xFF00695C)
+// Bangladesh Open University (BOU) Official Brand Colors
+// Official BOU Deep Bottle Green (Emblem & Portal Primary)
+val BouPrimary = Color(0xFF006A4E)
 val BouOnPrimary = Color(0xFFFFFFFF)
-val BouPrimaryContainer = Color(0xFFC8E6C9)
-val BouOnPrimaryContainer = Color(0xFF002114)
+val BouPrimaryContainer = Color(0xFFD1E7DD)
+val BouOnPrimaryContainer = Color(0xFF002216)
 
-val BouSecondary = Color(0xFF0D5C75)
+// Official BOU Deep Navy Blue (Portal Header & Secondary Identity)
+val BouSecondary = Color(0xFF0B2545)
 val BouOnSecondary = Color(0xFFFFFFFF)
-val BouSecondaryContainer = Color(0xFFC7E7FF)
-val BouOnSecondaryContainer = Color(0xFF001E2E)
+val BouSecondaryContainer = Color(0xFFD8E2F0)
+val BouOnSecondaryContainer = Color(0xFF021329)
 
-val BouTertiary = Color(0xFFB45309)
+// BOU Torch Flame Red / National Red (Accents, Important Notices & Alerts)
+val BouTertiary = Color(0xFFC62828)
 val BouOnTertiary = Color(0xFFFFFFFF)
-val BouTertiaryContainer = Color(0xFFFFDDB8)
-val BouOnTertiaryContainer = Color(0xFF2B1700)
+val BouTertiaryContainer = Color(0xFFFFEBEE)
+val BouOnTertiaryContainer = Color(0xFF410002)
 
-val BouBackgroundLight = Color(0xFFF7F9F8)
-val BouOnBackgroundLight = Color(0xFF191C1B)
+// BOU Golden Yellow / Emblem Laurel Gold
+val BouGold = Color(0xFFFFB300)
+val BouGoldDark = Color(0xFFD97706)
+val BouGoldLight = Color(0xFFFFF8E1)
+
+// Background & Surface Colors (Crisp Institutional White & Slate Greens)
+val BouBackgroundLight = Color(0xFFF4F7F5)
+val BouOnBackgroundLight = Color(0xFF131A17)
 val BouSurfaceLight = Color(0xFFFFFFFF)
-val BouOnSurfaceLight = Color(0xFF191C1B)
-val BouSurfaceVariant = Color(0xFFE0E5E2)
-val BouOnSurfaceVariant = Color(0xFF404944)
+val BouOnSurfaceLight = Color(0xFF131A17)
+val BouSurfaceVariant = Color(0xFFE2E9E5)
+val BouOnSurfaceVariant = Color(0xFF3B4842)
 
-val BouPrimaryDark = Color(0xFF4DB6AC)
-val BouOnPrimaryDark = Color(0xFF00382F)
-val BouPrimaryContainerDark = Color(0xFF005045)
-val BouOnPrimaryContainerDark = Color(0xFF99F2E2)
+// Dark Theme Variants
+val BouPrimaryDark = Color(0xFF34D399)
+val BouOnPrimaryDark = Color(0xFF003827)
+val BouPrimaryContainerDark = Color(0xFF00513B)
+val BouOnPrimaryContainerDark = Color(0xFF96F7D0)
 
-val BouSecondaryDark = Color(0xFF81D4FA)
-val BouOnSecondaryDark = Color(0xFF00344D)
-val BouBackgroundDark = Color(0xFF111413)
-val BouOnBackgroundDark = Color(0xFFE1E3E1)
-val BouSurfaceDark = Color(0xFF181C1B)
-val BouOnSurfaceDark = Color(0xFFE1E3E1)
-val BouSurfaceVariantDark = Color(0xFF404944)
-val BouOnSurfaceVariantDark = Color(0xFFC0C9C3)
+val BouSecondaryDark = Color(0xFF90CAF9)
+val BouOnSecondaryDark = Color(0xFF00325B)
+val BouBackgroundDark = Color(0xFF0D1512)
+val BouOnBackgroundDark = Color(0xFFE0E5E2)
+val BouSurfaceDark = Color(0xFF141E1A)
+val BouOnSurfaceDark = Color(0xFFE0E5E2)
+val BouSurfaceVariantDark = Color(0xFF22332B)
+val BouOnSurfaceVariantDark = Color(0xFFC0CCC5)
 
-// Custom semantic badges
-val GradeAColor = Color(0xFF16A34A)
-val GradeBColor = Color(0xFF2563EB)
+// Academic Grade Colors
+val GradeAColor = Color(0xFF006A4E)
+val GradeBColor = Color(0xFF0B2545)
 val GradeCColor = Color(0xFFD97706)
-val GradeFColor = Color(0xFFDC2626)
+val GradeFColor = Color(0xFFC62828)
 
-// Bento Grid Accent Color Schemes
-val BentoEmeraldContainerLight = Color(0xFFE8F5E9)
-val BentoEmeraldBorderLight = Color(0xFFA5D6A7)
-val BentoEmeraldTextLight = Color(0xFF1B5E20)
+// Bento Grid Accent Color Schemes aligned with BOU Branding
+val BentoEmeraldContainerLight = Color(0xFFE6F4EA)
+val BentoEmeraldBorderLight = Color(0xFFA3D9B5)
+val BentoEmeraldTextLight = Color(0xFF006A4E)
 
-val BentoSkyContainerLight = Color(0xFFE1F5FE)
-val BentoSkyBorderLight = Color(0xFF90CAF9)
-val BentoSkyTextLight = Color(0xFF0277BD)
+val BentoNavyContainerLight = Color(0xFFEBF1F7)
+val BentoNavyBorderLight = Color(0xFFA6C4E0)
+val BentoNavyTextLight = Color(0xFF0B2545)
 
 val BentoAmberContainerLight = Color(0xFFFFF8E1)
 val BentoAmberBorderLight = Color(0xFFFFE082)
-val BentoAmberTextLight = Color(0xFFE65100)
+val BentoAmberTextLight = Color(0xFFB45309)
 
-val BentoPurpleContainerLight = Color(0xFFF3E5F5)
-val BentoPurpleBorderLight = Color(0xFFCE93D8)
-val BentoPurpleTextLight = Color(0xFF6A1B9A)
+val BentoCrimsonContainerLight = Color(0xFFFFEBEE)
+val BentoCrimsonBorderLight = Color(0xFFFFCDD2)
+val BentoCrimsonTextLight = Color(0xFFC62828)
 
-val BentoRoseContainerLight = Color(0xFFFFEBEE)
-val BentoRoseBorderLight = Color(0xFFFFCDD2)
-val BentoRoseTextLight = Color(0xFFC2185B)
+val BentoSkyContainerLight = Color(0xFFE0F2FE)
+val BentoSkyBorderLight = Color(0xFF7DD3FC)
+val BentoSkyTextLight = Color(0xFF0369A1)
 
-val BentoIndigoContainerLight = Color(0xFFE8EAF6)
-val BentoIndigoBorderLight = Color(0xFFC5CAE9)
-val BentoIndigoTextLight = Color(0xFF283593)
+val BentoPurpleContainerLight = Color(0xFFF3E8FF)
+val BentoPurpleBorderLight = Color(0xFFD8B4FE)
+val BentoPurpleTextLight = Color(0xFF6B21A8)
 
-val BentoTealContainerLight = Color(0xFFE0F2F1)
-val BentoTealBorderLight = Color(0xFF80CBC4)
-val BentoTealTextLight = Color(0xFF00695C)
+val BentoSlateCardLight = Color(0xFFF8FAF9)
+val BentoSlateBorderLight = Color(0xFFDEE5E1)
 
-val BentoSlateCardLight = Color(0xFFF8FAFC)
-val BentoSlateBorderLight = Color(0xFFE2E8F0)
 
