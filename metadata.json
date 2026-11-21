@@ -1,6 +1,6 @@
 {
   "name": "BOU Student Portal",
-  "description": "Quick access student portal for Bangladesh Open University (BOU) with OSAPS login, admission notice, exam results, marks calculation system, and technical support.",
+  "description": "Independent student companion & utility dashboard for Bangladesh Open University (BOU) students with verified service links, GPA/CGPA calculation system, OSAPS shortcuts, and academic tools.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

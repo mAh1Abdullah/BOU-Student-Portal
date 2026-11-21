@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOU Student Portal | Bangladesh Open University</title>
+  <meta name="description" content="Independent student companion & utility dashboard for Bangladesh Open University (BOU) students with verified service links, GPA/CGPA calculation system, OSAPS shortcuts, and academic tools." />
+  <meta property="og:title" content="BOU Student Portal | Bangladesh Open University" />
+  <meta property="og:description" content="Independent student companion & utility dashboard for Bangladesh Open University (BOU) students with verified service links, GPA/CGPA calculation system, OSAPS shortcuts, and academic tools." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bou: {
+              green: '#006A4E', // Verified BOU Emerald Green Primary
+              greenDark: '#004D38',
+              greenLight: '#058865',
+              navy: '#0B2545',  // Verified BOU Navy Secondary
+              navyDark: '#07182D',
+              navyLight: '#133D70',
+              crimson: '#C62828', // BOU Red
+              crimsonDark: '#9B1D1D',
+              gold: '#FFB300', // Laurel Gold
+              goldDark: '#C68A00',
+              canvas: '#F8FAFC',
+              card: '#FFFFFF',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans Bengali"', 'sans-serif'],
+            bn: ['"Noto Sans Bengali"', '"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Bengali', sans-serif;
+      background-color: #F8FAFC;
+      color: #0F172A;
+    }
+    .bento-card {
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bento-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -10px rgba(0, 106, 78, 0.15), 0 4px 6px -2px rgba(11, 37, 69, 0.05);
+    }
+    .active-nav-pill {
+      background-color: #006A4E;
+      color: #FFFFFF;
+      box-shadow: 0 4px 10px -2px rgba(0, 106, 78, 0.35);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-bou-green selection:text-white">
+
+  <!-- Top Announcement Bar & Live BST Clock -->
+  <aside id="top-announcement-bar" class="bg-bou-navy text-white text-xs py-2 px-4 border-b border-bou-navyDark">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center space-x-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-bou-crimson text-white tracking-wide uppercase">Notice</span>
+        <span class="truncate max-w-xs sm:max-w-md md:max-w-xl text-slate-200">BOU Official Admission & Semester Registration Active via OSAPS. Official 4.00 standard grading applies.</span>
+      </div>
+      <div class="flex items-center space-x-4 ml-auto text-xs text-slate-300">
+        <div id="bst-clock" class="flex items-center space-x-1.5 font-mono">
+          <span class="w-2 h-2 rounded-full bg-bou-gold animate-pulse"></span>
+          <span id="clock-display">BST: --:-- --</span>
+        </div>
+        <div id="office-status" class="hidden sm:inline-flex items-center px-2 py-0.5 rounded font-medium text-[11px] bg-emerald-900/60 text-emerald-300 border border-emerald-700/50">
+          Helpline Open
+        </div>
+        <button id="lang-toggle-btn" onclick="toggleLanguage()" class="px-2 py-0.5 rounded border border-slate-600 bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-colors">
+          বাংলা
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo & Branding -->
+        <a href="#hub" onclick="switchTab('hub')" class="flex items-center space-x-3.5 group">
+          <div class="w-12 h-12 rounded-xl bg-bou-green flex items-center justify-center text-white font-bold shadow-md group-hover:bg-bou-greenDark transition-colors">
+            <svg class="w-7 h-7 text-bou-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+              <path d="M6 6h10"/>
+              <path d="M6 10h10"/>
+              <path d="M6 14h6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xl font-extrabold tracking-tight text-bou-navy" data-i18n="appTitle">BOU Student Companion</span>
+              <span class="hidden md:inline-flex px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 text-bou-green border border-emerald-300">4.00 Scale</span>
+            </div>
+            <p class="text-xs text-slate-500 font-medium font-bn" data-i18n="appSubtitle">বাংলাদেশ উন্মুক্ত বিশ্ববিদ্যালয় • শিক্ষা সবার জন্য সর্বদা সর্বত্র</p>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Tabs -->
+        <nav class="hidden md:flex items-center space-x-1 p-1 bg-slate-100/80 rounded-xl border border-slate-200 text-xs font-semibold">
+          <button id="nav-btn-hub" onclick="switchTab('hub')" class="active-nav-pill px-3.5 py-2 rounded-lg transition-all flex items-center space-x-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+            <span data-i18n="tabHub">Portal Hub</span>
+          </button>
+          <button id="nav-btn-calc" onclick="switchTab('calc')" class="text-slate-600 hover:text-slate-900 px-3.5 py-2 rounded-lg transition-all flex items-center space-x-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            <span data-i18n="tabCalc">Academic Calculator</span>
+          </button>
+          <button id="nav-btn-progress" onclick="switchTab('progress')" class="text-slate-600 hover:text-slate-900 px-3.5 py-2 rounded-lg transition-all flex items-center space-x-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            <span data-i18n="tabProgress">Degree Progress</span>
+          </button>
+          <button id="nav-btn-profile" onclick="switchTab('profile')" class="text-slate-600 hover:text-slate-900 px-3.5 py-2 rounded-lg transition-all flex items-center space-x-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <span data-i18n="tabProfile">OSAPS Profile</span>
+          </button>
+          <button id="nav-btn-contacts" onclick="switchTab('contacts')" class="text-slate-600 hover:text-slate-900 px-3.5 py-2 rounded-lg transition-all flex items-center space-x-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <span data-i18n="tabContacts">Helpline & Directory</span>
+          </button>
+        </nav>
+
+        <!-- Direct OSAPS Action & Mobile Menu Toggle -->
+        <div class="flex items-center space-x-2">
+          <a href="https://osapsnew.bou.ac.bd" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-bou-navy hover:bg-bou-navyLight text-white text-xs font-bold shadow-sm transition-all">
+            <span>OSAPS Login</span>
+            <svg class="w-3.5 h-3.5 text-bou-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <button onclick="document.getElementById('mobile-nav-panel').classList.toggle('hidden')" class="md:hidden p-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div id="mobile-nav-panel" class="hidden md:hidden pb-4 pt-2 border-t border-slate-200 space-y-1">
+        <button onclick="switchTab('hub'); document.getElementById('mobile-nav-panel').classList.add('hidden')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center space-x-2">
+          <span>Portal Hub (সার্ভিস হাব)</span>
+        </button>
+        <button onclick="switchTab('calc'); document.getElementById('mobile-nav-panel').classList.add('hidden')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center space-x-2">
+          <span>Academic Calculator (সিজিপিএ ক্যালকুলেটর)</span>
+        </button>
+        <button onclick="switchTab('progress'); document.getElementById('mobile-nav-panel').classList.add('hidden')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center space-x-2">
+          <span>Degree Progress (ডিগ্রি প্রগ্রেস)</span>
+        </button>
+        <button onclick="switchTab('profile'); document.getElementById('mobile-nav-panel').classList.add('hidden')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center space-x-2">
+          <span>OSAPS Profile (প্রোফাইল কার্ড)</span>
+        </button>
+        <button onclick="switchTab('contacts'); document.getElementById('mobile-nav-panel').classList.add('hidden')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 flex items-center space-x-2">
+          <span>Helpline & Directory (হেল্পলাইন ও কেন্দ্র)</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mandatory Institutional Disclaimer Boundary (Section 1 of PLAN.md) -->
+  <div class="bg-amber-50 border-b border-amber-200 px-4 py-2.5 text-xs text-amber-900">
+    <div class="max-w-7xl mx-auto flex items-start space-x-2.5">
+      <svg class="w-4 h-4 text-amber-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      <div>
+        <strong class="font-bold">Official Disclaimer:</strong>
+        <span data-i18n="disclaimer">Independent Student Utility Dashboard. Official records, examination results, admissions, and notices are provided exclusively by Bangladesh Open University through its official systems.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search & Subtitle Banner -->
+  <section class="bg-gradient-to-b from-emerald-50/50 via-slate-50 to-white border-b border-slate-200 py-6 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center space-x-2 mb-1">
+          <span class="w-2.5 h-2.5 rounded-full bg-bou-green"></span>
+          <span class="text-xs font-bold uppercase tracking-wider text-bou-green">Verified Student Companion</span>
+          <span class="text-xs text-slate-400">•</span>
+          <span class="text-xs text-slate-600 font-medium">Official 4.00 Scale Standard</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-bou-navy tracking-tight">
+          Bangladesh Open University Student Portal
+        </h1>
+        <p class="text-sm text-slate-600 mt-1 max-w-2xl font-bn">
+          বাংলাদেশ উন্মুক্ত বিশ্ববিদ্যালয় শিক্ষার্থীদের ভর্তি, ফলাফল, নোটিশ, ই-বুক ও সিজিপিএ ক্যালকুলেটরের দ্রুত এক্সেস হাব।
+        </p>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="w-full md:w-auto min-w-[300px] sm:min-w-[360px]">
+        <div class="relative">
+          <input
+            type="text"
+            id="portal-search"
+            oninput="filterBentoGrid()"
+            placeholder="Search portals, links, helpline..."
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-bou-green/40 focus:border-bou-green text-xs shadow-sm"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <span id="search-count" class="hidden absolute right-3 top-2.5 px-2 py-0.5 text-[11px] font-bold rounded-md bg-slate-100 text-slate-600"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Viewports Container -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- ==================== TAB 1: BENTO HUB ==================== -->
+    <section id="tab-hub" class="space-y-8">
+      
+      <!-- Top Row: Active OSAPS Card + Quick Jump to Results -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- OSAPS Mini Card on Home -->
+        <div class="bg-gradient-to-br from-bou-navy via-bou-navyDark to-slate-900 rounded-2xl p-6 text-white shadow-md border border-bou-navyDark relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-bou-gold/10 pointer-events-none blur-2xl"></div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-bou-gold text-bou-navy">
+                ★ Saved Student ID
+              </span>
+              <button onclick="switchTab('profile')" class="text-xs text-slate-300 hover:text-white underline">Edit Profile</button>
+            </div>
+            <div class="space-y-2">
+              <div class="text-xs text-slate-300 font-medium">Active BOU Student ID</div>
+              <div class="flex items-center justify-between bg-white/10 rounded-xl p-3 border border-white/10">
+                <span id="home-card-id" class="font-mono text-lg font-bold tracking-wider text-bou-gold">21-0-11-020-045</span>
+                <button onclick="copyStudentId()" class="p-1.5 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors" title="Copy Student ID">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-white/10 text-xs text-slate-300 space-y-1">
+              <div>Program: <span id="home-card-program" class="font-semibold text-white">BBA (School of Business)</span></div>
+              <div>Regional Center: <span id="home-card-rc" class="text-slate-300">Dhaka Regional Center</span></div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center space-x-2">
+            <a href="https://osapsnew.bou.ac.bd" target="_blank" rel="noopener noreferrer" class="flex-1 py-2 rounded-xl bg-bou-gold hover:bg-bou-goldDark text-bou-navy font-bold text-xs text-center transition-all flex items-center justify-center space-x-1.5 shadow">
+              <span>Open OSAPS Portal</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+            <button onclick="copyStudentId()" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/20 transition-all">
+              Copy ID
+            </button>
+          </div>
+        </div>
+
+        <!-- Featured Service 1: Results Portal -->
+        <div class="portal-item bento-card bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between" data-search="result exam grade transcript marksheet cgpa ফলাফল">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-emerald-100 text-bou-green">
+                Official BOU Service
+              </span>
+              <span class="text-xs text-slate-400 font-mono">result.bou.ac.bd</span>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-bou-green flex items-center justify-center mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <h2 class="text-lg font-bold text-bou-navy">BOU Results & Transcripts</h2>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Official examination results, semester grade sheets, and transcript verification for SSC, HSC, BA, BSS, BBA, LLB, and Master programs.
+            </p>
+          </div>
+          <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] text-slate-400">Verified: Controller of Exam</span>
+            <a href="https://result.bou.ac.bd" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-xs font-bold text-bou-green hover:text-bou-greenDark">
+              <span>View Results</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Featured Service 2: Notice Board -->
+        <div class="portal-item bento-card bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between" data-search="notice announcement routine exam date circular নোটিশ">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-emerald-100 text-bou-green">
+                Official BOU Service
+              </span>
+              <span class="text-xs text-slate-400 font-mono">bou.ac.bd/NoticeBoard</span>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+            </div>
+            <h2 class="text-lg font-bold text-bou-navy">Official Notice Board</h2>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              Examination schedules, assignment deadlines, tutorial schedules, semester fees, and regional center circulars updated by BOU.
+            </p>
+          </div>
+          <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] text-slate-400">Verified: BOU Registrar</span>
+            <a href="https://www.bou.ac.bd/NoticeBoard" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-xs font-bold text-bou-green hover:text-bou-greenDark">
+              <span>Open Notices</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Bento Row: Core Ecosystem (Website, Admissions, Handbooks, Ebooks) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Bento 3: Official Central Website -->
+        <div class="portal-item bento-card bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between" data-search="website main official portal bou.ac.bd মূল ওয়েবসাইট">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-bou-green">
+                Official BOU Service
+              </span>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-bou-navy flex items-center justify-center mb-3">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+            </div>
+            <h3 class="font-bold text-base text-bou-navy">BOU Main Portal</h3>
+            <p class="text-xs text-slate-600 mt-2">Central institutional website with administrative directories, university councils, and academic news.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <a href="https://www.bou.ac.bd" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-bou-green hover:underline inline-flex items-center space-x-1">
+              <span>www.bou.ac.bd</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Bento 4: Online Admission -->
+        <div class="portal-item bento-card bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between" data-search="admission apply online eligibility fees ভর্তি">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-bou-green">
+                Official BOU Service
+              </span>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center mb-3">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+            </div>
+            <h3 class="font-bold text-base text-bou-navy">Online Admission</h3>
+            <p class="text-xs text-slate-600 mt-2">New student applications, prospectus downloads, program eligibility, and admission deadlines.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <a href="https://www.bou.ac.bd/BOU/Admission" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-bou-green hover:underline inline-flex items-center space-x-1">
+              <span>Admission Info</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Bento 5: Student Handbooks & Rules -->
+        <div class="portal-item bento-card bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between" data-search="handbook rules syllabus bylaws curriculum ক্রেডিট নীতিমালা">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-bou-green">
+                Official BOU Service
+              </span>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center mb-3">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <h3 class="font-bold text-base text-bou-navy">Student Handbooks</h3>
+            <p class="text-xs text-slate-600 mt-2">Academic bylaws, minimum pass marks (C- 40%), credit prerequisites, and conduct policies.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <a href="https://www.bou.ac.bd/BOU/StudentHandbook" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-bou-green hover:underline inline-flex items-center space-x-1">
+              <span>View Handbooks</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Bento 6: Ebook Library -->
+        <div class="portal-item bento-card bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between" data-search="ebook book library textbook download pdf পাঠ্যবই">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-bou-green">
+                Official BOU Service
+              </span>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center mb-3">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+            </div>
+            <h3 class="font-bold text-base text-bou-navy">E-Book Digital Library</h3>
+            <p class="text-xs text-slate-600 mt-2">Official textbooks in downloadable PDF format for all schools, audio lectures, and study guides.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <a href="https://www.ebookbou.edu.bd" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-bou-green hover:underline inline-flex items-center space-x-1">
+              <span>www.ebookbou.edu.bd</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Third Bento Row: Academic Utilities on this Platform -->
+      <div class="bg-slate-100/70 rounded-2xl p-6 border border-slate-200">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-bold text-base text-bou-navy">Integrated Student Utilities</h3>
+            <p class="text-xs text-slate-500 font-bn">এই অ্যাপ্লিকেশনে অন্তর্ভুক্ত অফলাইন-বান্ধব একাডেমিক টুলসমূহ</p>
+          </div>
+          <span class="inline-flex items-center px-2.5 py-1 rounded text-xs font-bold bg-white text-slate-700 border border-slate-300">
+            Client-Side Tools
+          </span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div onclick="switchTab('calc')" class="cursor-pointer bg-white p-4 rounded-xl border border-slate-200 hover:border-bou-green transition-all shadow-sm">
+            <div class="flex items-center space-x-3">
+              <div class="w-9 h-9 rounded-lg bg-emerald-100 text-bou-green flex items-center justify-center font-bold">4.0</div>
+              <div>
+                <h4 class="font-bold text-xs text-slate-900">4.00 CGPA & Marks Calculator</h4>
+                <p class="text-[11px] text-slate-500">Official BOU grade conversion, quality points & distinction</p>
+              </div>
+            </div>
+          </div>
+          <div onclick="switchTab('progress')" class="cursor-pointer bg-white p-4 rounded-xl border border-slate-200 hover:border-bou-green transition-all shadow-sm">
+            <div class="flex items-center space-x-3">
+              <div class="w-9 h-9 rounded-lg bg-blue-100 text-bou-navy flex items-center justify-center font-bold">%</div>
+              <div>
+                <h4 class="font-bold text-xs text-slate-900">Degree Progress & Target Planner</h4>
+                <p class="text-[11px] text-slate-500">Calculate required GPA on remaining credits to hit target</p>
+              </div>
+            </div>
+          </div>
+          <div onclick="switchTab('contacts')" class="cursor-pointer bg-white p-4 rounded-xl border border-slate-200 hover:border-bou-green transition-all shadow-sm">
+            <div class="flex items-center space-x-3">
+              <div class="w-9 h-9 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center font-bold">12</div>
+              <div>
+                <h4 class="font-bold text-xs text-slate-900">12 Regional Centers Directory</h4>
+                <p class="text-[11px] text-slate-500">Verified official addresses, phone numbers & helpline hours</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: ACADEMIC CALCULATOR ==================== -->
+    <section id="tab-calc" class="hidden space-y-8">
+      
+      <!-- Calculator Header & Mode Toggle -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-bou-gold/20 text-bou-navy border border-bou-gold/50">Official 4.00 Standard</span>
+            <span class="text-xs text-slate-400">•</span>
+            <span class="text-xs font-semibold text-bou-green">BOU Academic Code</span>
+          </div>
+          <h2 class="text-xl font-extrabold text-bou-navy mt-1">BOU CGPA & Semester Calculator</h2>
+          <p class="text-xs text-slate-600 mt-0.5 font-bn">বাংলাদেশ উন্মুক্ত বিশ্ববিদ্যালয়ের গ্রেডিং নীতিমালা অনুযায়ী নির্ভুল ফলাফল ও জিপিএ হিসাব।</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- Preset selector -->
+          <div class="flex items-center space-x-2 text-xs">
+            <label class="text-slate-500 font-medium">Program Preset:</label>
+            <select id="preset-select" onchange="loadProgramPreset(this.value)" class="px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs font-semibold text-slate-700 bg-slate-50 focus:ring-1 focus:ring-bou-green">
+              <option value="bba">BBA (120 Cr.)</option>
+              <option value="ba_bss">BA / BSS (126 Cr.)</option>
+              <option value="llb">LLB Honours (128 Cr.)</option>
+              <option value="mba">MBA (60 Cr.)</option>
+              <option value="hsc">HSC (48 Cr.)</option>
+            </select>
+          </div>
+
+          <!-- Input mode toggle -->
+          <div class="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs font-bold">
+            <button id="mode-marks" onclick="setCalcMode('marks')" class="px-3 py-1.5 rounded-lg bg-bou-green text-white shadow-sm transition-all">
+              Marks (0–100)
+            </button>
+            <button id="mode-grade" onclick="setCalcMode('grade')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+              Letter Grade
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-time Stats Cards Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Semester GPA</div>
+          <div id="stat-cgpa" class="text-3xl font-extrabold text-bou-navy font-mono mt-1">3.65</div>
+          <div id="stat-class" class="text-xs text-bou-green font-bold mt-1">First Class</div>
+        </div>
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Attempted Credits</div>
+          <div id="stat-total-credits" class="text-3xl font-extrabold text-slate-800 font-mono mt-1">15.0</div>
+          <div class="text-xs text-slate-400 mt-1">Enrolled Courses</div>
+        </div>
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Earned Credits</div>
+          <div id="stat-earned-credits" class="text-3xl font-extrabold text-emerald-700 font-mono mt-1">15.0</div>
+          <div id="stat-failed-count" class="text-xs text-slate-500 mt-1">0 Failed courses</div>
+        </div>
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Academic Standing</div>
+          <div id="stat-badge" class="text-xs font-bold text-slate-700 mt-2 inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800">
+            First Class / Division
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">Official BOU Bylaws</div>
+        </div>
+      </div>
+
+      <!-- Main Course Table & Official Scale Reference -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Course Table (Span 2) -->
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-base text-bou-navy">Enrolled Courses & Semester Grades</h3>
+            <div class="flex items-center space-x-2">
+              <button onclick="addCourseRow()" class="px-3 py-1.5 rounded-lg bg-bou-green hover:bg-bou-greenDark text-white text-xs font-bold transition-colors flex items-center space-x-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>Add Course</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Courses table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-slate-200 bg-slate-50 text-slate-600 font-bold">
+                  <th class="py-2.5 px-3">Course Title</th>
+                  <th class="py-2.5 px-3 w-28">Credits</th>
+                  <th class="py-2.5 px-3 w-36" id="th-input-header">Marks (0–100)</th>
+                  <th class="py-2.5 px-3 w-24">Grade</th>
+                  <th class="py-2.5 px-3 w-20">GP</th>
+                  <th class="py-2.5 px-2 w-10 text-center"></th>
+                </tr>
+              </thead>
+              <tbody id="course-rows" class="divide-y divide-slate-100">
+                <!-- Injected rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+            <span>Minimum passing mark in BOU: <strong class="text-slate-700 font-bold">C- (2.00 / 40%)</strong></span>
+            <button onclick="window.print()" class="text-bou-navy font-bold hover:underline inline-flex items-center space-x-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+              <span>Print Grade Sheet</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Official Grading Standard Scale Reference Card (Span 1) -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-bold text-sm text-bou-navy">Official BOU Grading Matrix</h3>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-bou-gold/20 text-bou-navy">Academic Code</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">Official grading standard adopted across Open University Bachelor & Master programs:</p>
+
+            <div class="overflow-hidden rounded-xl border border-slate-200">
+              <table class="w-full text-[11px] text-left">
+                <thead class="bg-bou-navy text-white font-semibold">
+                  <tr>
+                    <th class="py-1.5 px-2.5">Marks %</th>
+                    <th class="py-1.5 px-2">Grade</th>
+                    <th class="py-1.5 px-2">Point</th>
+                    <th class="py-1.5 px-2">Remarks</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-slate-700">
+                  <tr class="bg-emerald-50/50"><td class="py-1.5 px-2.5 font-mono">80%+</td><td class="font-bold text-bou-green">A+</td><td class="font-mono font-bold">4.00</td><td>Outstanding</td></tr>
+                  <tr><td class="py-1.5 px-2.5 font-mono">75% to &lt;80%</td><td class="font-bold text-bou-green">A</td><td class="font-mono">3.75</td><td>Excellent</td></tr>
+                  <tr><td class="py-1.5 px-2.5 font-mono">70% to &lt;75%</td><td class="font-bold text-bou-green">A-</td><td class="font-mono">3.50</td><td>Very Good</td></tr>
+                  <tr><td class="py-1.5 px-2.5 font-mono">65% to &lt;70%</td><td class="font-bold text-blue-700">B+</td><td class="font-mono">3.25</td><td>Good</td></tr>
+                  <tr><td class="py-1.5 px-2.5 font-mono">60% to &lt;65%</td><td class="font-bold text-blue-700">B</td><td class="font-mono">3.00</td><td>Satisfactory</td></tr>
+                  <tr><td class="py-1.5 px-2.5 font-mono">55% to &lt;60%</td><td class="font-bold text-blue-700">B-</td><td class="font-mono">2.75</td><td>Above Average</td></tr>
+                  <tr><td class="py-1.5 px-2.5 font-mono">50% to &lt;55%</td><td class="font-bold text-amber-700">C+</td><td class="font-mono">2.50</td><td>Average</td></tr>
+                  <tr><td class="py-1.5 px-2.5 font-mono">45% to &lt;50%</td><td class="font-bold text-amber-700">C</td><td class="font-mono">2.25</td><td>Below Average</td></tr>
+                  <tr><td class="py-1.5 px-2.5 font-mono">40% to &lt;45%</td><td class="font-bold text-amber-800">C-</td><td class="font-mono">2.00</td><td>Pass</td></tr>
+                  <tr class="bg-rose-50/70"><td class="py-1.5 px-2.5 font-mono">&lt; 40%</td><td class="font-bold text-bou-crimson">F</td><td class="font-mono font-bold text-bou-crimson">0.00</td><td class="text-bou-crimson font-medium">Fail</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500">
+            <span class="font-bold text-slate-700">Degree Classification:</span><br>
+            • CGPA 3.75+: First Class with Distinction<br>
+            • CGPA 3.00 – 3.74: First Class / First Division<br>
+            • CGPA 2.25 – 2.99: Second Class / Second Division<br>
+            • CGPA 2.00 – 2.24: Pass Division
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Multi-Semester Cumulative CGPA Builder -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+          <div>
+            <h3 class="font-bold text-base text-bou-navy">Multi-Semester Cumulative CGPA Record</h3>
+            <p class="text-xs text-slate-500">Add completed semesters to calculate your overall cumulative CGPA across your entire degree.</p>
+          </div>
+          <button onclick="addSemesterRow()" class="px-3 py-1.5 rounded-lg bg-bou-navy hover:bg-bou-navyLight text-white text-xs font-bold transition-colors flex items-center space-x-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Semester</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-slate-200 bg-slate-50 text-slate-600 font-bold">
+                  <th class="py-2.5 px-3">Semester Label</th>
+                  <th class="py-2.5 px-3 w-32">Credits</th>
+                  <th class="py-2.5 px-3 w-32">Semester GPA</th>
+                  <th class="py-2.5 px-3 w-28">Quality Points</th>
+                  <th class="py-2.5 px-2 w-10 text-center"></th>
+                </tr>
+              </thead>
+              <tbody id="semester-rows" class="divide-y divide-slate-100">
+                <!-- Injected semester rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 flex flex-col justify-between">
+            <div>
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Overall Cumulative CGPA</div>
+              <div id="cum-stat-cgpa" class="text-4xl font-extrabold text-bou-green font-mono mt-2">3.58</div>
+              <div id="cum-stat-class" class="text-xs font-bold text-bou-navy mt-1">First Class / Division</div>
+              <div class="mt-4 pt-3 border-t border-slate-200 text-xs text-slate-600 space-y-1">
+                <div>Total Completed Credits: <strong id="cum-stat-credits" class="font-mono font-bold text-slate-900">30.0</strong></div>
+                <div>Status: <span class="text-emerald-700 font-semibold">Good Academic Standing</span></div>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-200 text-[11px] text-slate-400">
+              Formulas adhere to Section 8 of BOU Student Handbook.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 3: DEGREE PROGRESS & TARGET PLANNER ==================== -->
+    <section id="tab-progress" class="hidden space-y-8">
+      
+      <!-- Degree Progress Tracker Card -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-extrabold text-bou-navy">Degree Completion Progress</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Track completed credit milestones and graduation requirements.</p>
+          </div>
+          <div class="flex items-center space-x-2 text-xs">
+            <span class="text-slate-600 font-semibold">Degree Goal:</span>
+            <select onchange="updateProgramRequirement(this.value)" class="px-2.5 py-1.5 rounded-lg border border-slate-300 font-semibold text-xs text-slate-700 bg-slate-50">
+              <option value="120">BBA (120 Credits)</option>
+              <option value="126">BA / BSS (126 Credits)</option>
+              <option value="128">LLB Honours (128 Credits)</option>
+              <option value="60">MBA (60 Credits)</option>
+              <option value="48">HSC (48 Credits)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+            <span id="progress-earned-text">30.0 / 120 Credits</span>
+            <span id="progress-pct-text" class="text-bou-green">25% Completed</span>
+          </div>
+          <div class="w-full h-4 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+            <div id="progress-bar-fill" class="h-full bg-bou-green rounded-full transition-all duration-500" style="width: 25%"></div>
+          </div>
+          <div class="flex items-center justify-between text-[11px] text-slate-500 pt-1">
+            <span>Minimum CGPA 2.00 required for graduation</span>
+            <span id="progress-remaining-text" class="font-semibold text-bou-navy">90.0 Credits Remaining</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Required GPA Target Planner (Section 11.1 of PLAN.md) -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-purple-100 text-purple-800">Target Planner</span>
+            <span class="text-xs text-slate-400">•</span>
+            <span class="text-xs font-semibold text-slate-600">Deterministic Mathematical Model</span>
+          </div>
+          <h3 class="text-lg font-extrabold text-bou-navy mt-1" data-i18n="targetPlanner">Required GPA Target Planner</h3>
+          <p class="text-xs text-slate-500">Calculate exactly what average GPA you need in your remaining credits to achieve your desired graduation CGPA.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Current CGPA</label>
+            <input type="number" step="0.01" min="0" max="4" id="plan-current-cgpa" value="3.20" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-bold focus:ring-1 focus:ring-bou-green"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Completed Credits</label>
+            <input type="number" min="0" max="150" id="plan-completed-credits" value="60" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-bold focus:ring-1 focus:ring-bou-green"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Remaining Credits</label>
+            <input type="number" min="1" max="150" id="plan-remaining-credits" value="60" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-bold focus:ring-1 focus:ring-bou-green"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Target CGPA Goal</label>
+            <input type="number" step="0.01" min="2.0" max="4.0" id="plan-target-cgpa" value="3.50" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-bold focus:ring-1 focus:ring-bou-green"/>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-2">
+          <button onclick="calculateTargetPlan()" class="px-5 py-2.5 rounded-xl bg-bou-green hover:bg-bou-greenDark text-white text-xs font-bold transition-all shadow">
+            Calculate Target Feasibility
+          </button>
+        </div>
+
+        <!-- Result Display Card -->
+        <div id="plan-result-box" class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Required Performance on Remaining Credits</div>
+          <div class="flex items-baseline space-x-3 mt-1">
+            <span id="plan-result-gpa" class="text-3xl font-extrabold font-mono text-bou-green">3.80</span>
+            <span class="text-xs text-slate-600">Average GPA needed per future semester</span>
+          </div>
+          <p id="plan-result-msg" class="text-xs text-slate-600 mt-2 font-medium">
+            Feasible: You must maintain an average GPA of at least 3.80 across the remaining 60 credits to graduate with your target CGPA of 3.50.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 4: OSAPS PROFILE CARD ==================== -->
+    <section id="tab-profile" class="hidden space-y-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left: Visual Identity Card -->
+        <div class="bg-gradient-to-br from-bou-navy via-slate-900 to-bou-greenDark rounded-3xl p-7 text-white shadow-xl border border-slate-800 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-44 h-44 rounded-full bg-bou-gold/10 blur-3xl pointer-events-none"></div>
+
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-10 h-10 rounded-xl bg-bou-green flex items-center justify-center font-bold text-bou-gold">
+                  BOU
+                </div>
+                <div>
+                  <div class="text-xs font-bold uppercase tracking-wider text-slate-200">BOU Student Card</div>
+                  <div class="text-[10px] text-slate-400 font-mono">Local Storage Record</div>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-bou-gold text-bou-navy">Active Student</span>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <div class="text-[11px] text-slate-400 font-medium">Student Full Name</div>
+                <div id="card-student-name" class="text-lg font-bold text-white">Md. Abdullah Al Mamun</div>
+              </div>
+              <div>
+                <div class="text-[11px] text-slate-400 font-medium">Student ID (BOU OSAPS)</div>
+                <div class="flex items-center justify-between bg-white/10 rounded-xl p-3 border border-white/10 mt-1">
+                  <span id="card-student-id" class="font-mono text-xl font-extrabold text-bou-gold tracking-wider">21-0-11-020-045</span>
+                  <button onclick="copyStudentId()" class="p-1.5 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors" title="Copy ID">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs pt-2">
+                <div>
+                  <div class="text-[11px] text-slate-400">Enrolled Program</div>
+                  <div id="card-program" class="font-semibold text-white truncate">BBA</div>
+                </div>
+                <div>
+                  <div class="text-[11px] text-slate-400">Admission Session</div>
+                  <div id="card-session" class="font-semibold text-white">2021-2022</div>
+                </div>
+              </div>
+              <div>
+                <div class="text-[11px] text-slate-400">Regional Center (RRC)</div>
+                <div id="card-rc" class="text-xs font-semibold text-slate-200">Dhaka Regional Center</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-white/10 flex items-center justify-between">
+            <button onclick="copyStudentId()" class="px-3.5 py-2 rounded-xl bg-bou-gold text-bou-navy font-bold text-xs hover:bg-bou-goldDark transition-colors">
+              1-Click Copy ID
+            </button>
+            <a href="https://osapsnew.bou.ac.bd" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-300 hover:text-white underline">
+              Open OSAPS Official →
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Profile Settings & Local Persistence Form -->
+        <div class="lg:col-span-2 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div>
+              <h3 class="font-bold text-lg text-bou-navy">Local Student Profile Information</h3>
+              <p class="text-xs text-slate-500">Save your student registration details for rapid auto-filling and 1-click clipboard copying.</p>
+            </div>
+            <button onclick="clearLocalData()" class="px-3 py-1.5 rounded-lg border border-rose-200 text-bou-crimson hover:bg-rose-50 text-xs font-semibold transition-colors">
+              Clear Saved Data
+            </button>
+          </div>
+
+          <!-- Privacy Guarantee Notice -->
+          <div class="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900 flex items-start space-x-2.5">
+            <svg class="w-4 h-4 text-bou-green shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <div>
+              <strong class="font-bold">Privacy Guarantee:</strong> This information is stored exclusively in your browser's local device storage. No passwords, OTPs, or private credentials are ever requested, transmitted, or stored.
+            </div>
+          </div>
+
+          <form onsubmit="saveProfile(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Student ID Number *</label>
+                <input type="text" id="input-id" placeholder="e.g. 21-0-11-020-045" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-mono font-bold focus:ring-1 focus:ring-bou-green"/>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Student Full Name</label>
+                <input type="text" id="input-name" placeholder="e.g. Md. Abdullah Al Mamun" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-1 focus:ring-bou-green"/>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Degree Program</label>
+                <select id="input-program" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold bg-white focus:ring-1 focus:ring-bou-green">
+                  <option value="Bachelor of Business Administration (BBA)">Bachelor of Business Administration (BBA)</option>
+                  <option value="Bachelor of Arts / Social Science (BA/BSS)">Bachelor of Arts / Social Science (BA/BSS)</option>
+                  <option value="Bachelor of Laws (LLB Honours)">Bachelor of Laws (LLB Honours)</option>
+                  <option value="Master of Business Administration (MBA)">Master of Business Administration (MBA)</option>
+                  <option value="Higher Secondary Certificate (HSC)">Higher Secondary Certificate (HSC)</option>
+                  <option value="Secondary School Certificate (SSC)">Secondary School Certificate (SSC)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Admission Session</label>
+                <input type="text" id="input-session" placeholder="e.g. 2021-2022" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-1 focus:ring-bou-green"/>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Regional Center (RRC)</label>
+                <select id="input-rc" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold bg-white focus:ring-1 focus:ring-bou-green">
+                  <option value="Dhaka Regional Center (RC 11)">Dhaka Regional Center (RC 11)</option>
+                  <option value="Chattogram Regional Center (RC 12)">Chattogram Regional Center (RC 12)</option>
+                  <option value="Rajshahi Regional Center (RC 13)">Rajshahi Regional Center (RC 13)</option>
+                  <option value="Khulna Regional Center (RC 14)">Khulna Regional Center (RC 14)</option>
+                  <option value="Sylhet Regional Center (RC 15)">Sylhet Regional Center (RC 15)</option>
+                  <option value="Barishal Regional Center (RC 16)">Barishal Regional Center (RC 16)</option>
+                  <option value="Rangpur Regional Center (RC 17)">Rangpur Regional Center (RC 17)</option>
+                  <option value="Mymensingh Regional Center (RC 18)">Mymensingh Regional Center (RC 18)</option>
+                  <option value="Bogura Regional Center (RC 19)">Bogura Regional Center (RC 19)</option>
+                  <option value="Cumilla Regional Center (RC 20)">Cumilla Regional Center (RC 20)</option>
+                  <option value="Faridpur Regional Center (RC 21)">Faridpur Regional Center (RC 21)</option>
+                  <option value="Jashore Regional Center (RC 22)">Jashore Regional Center (RC 22)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Study Center (College)</label>
+                <input type="text" id="input-study-center" placeholder="e.g. Govt. Bangla College, Mirpur" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-medium focus:ring-1 focus:ring-bou-green"/>
+              </div>
+            </div>
+
+            <div class="pt-4 flex items-center justify-between">
+              <button type="submit" class="px-5 py-2.5 rounded-xl bg-bou-green hover:bg-bou-greenDark text-white text-xs font-bold transition-all shadow">
+                Save Profile to Device
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 5: HELPLINES & REGIONAL DIRECTORY ==================== -->
+    <section id="contacts" class="hidden space-y-8">
+      
+      <!-- Helplines & Support Header -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-bou-green">Official Contacts</span>
+            <span class="text-xs text-slate-400">•</span>
+            <span class="text-xs font-medium text-slate-600">Verified Institutional Directory</span>
+          </div>
+          <h2 class="text-xl font-extrabold text-bou-navy mt-1">BOU Official Support & Helplines</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Contact Open University technical desks, Registrar office, and Regional Resource Centers.</p>
+        </div>
+
+        <!-- Regional Center Search -->
+        <div class="w-full md:w-72">
+          <input
+            type="text"
+            id="rc-search-input"
+            oninput="filterRegionalCenters()"
+            placeholder="Filter regional centers (e.g. Dhaka, Khulna)..."
+            class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-1 focus:ring-bou-green bg-white shadow-sm"
+          />
+        </div>
+      </div>
+
+      <!-- Core Helplines Row -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- OSAPS Helpline 1 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-bou-green">Technical Support Desk</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-bou-green">Office Hours</span>
+            </div>
+            <h3 class="font-bold text-base text-bou-navy">OSAPS Helpline 1</h3>
+            <p class="text-xs text-slate-500 mt-1">Login support, payment verification, student ID issues.</p>
+            <div class="mt-4 p-3 rounded-xl bg-slate-50 border border-slate-200 font-mono text-base font-bold text-bou-navy">
+              01618977237
+            </div>
+            <div class="text-[11px] text-slate-500 mt-2">
+              ✉️ help.osaps@bou.ac.bd<br>
+              🕒 Sun–Thu: 9:00 AM – 5:00 PM
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center space-x-2">
+            <a href="tel:01618977237" class="flex-1 py-2 rounded-lg bg-bou-green hover:bg-bou-greenDark text-white text-xs font-bold text-center transition-colors">
+              Call Now
+            </a>
+            <button onclick="copyToClipboard('01618977237', 'Phone copied')" class="px-3 py-2 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50">
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- OSAPS Helpline 2 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-bou-green">Technical Support Desk</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-bou-green">Office Hours</span>
+            </div>
+            <h3 class="font-bold text-base text-bou-navy">OSAPS Helpline 2</h3>
+            <p class="text-xs text-slate-500 mt-1">Course registration, admission status & technical queries.</p>
+            <div class="mt-4 p-3 rounded-xl bg-slate-50 border border-slate-200 font-mono text-base font-bold text-bou-navy">
+              01907451612
+            </div>
+            <div class="text-[11px] text-slate-500 mt-2">
+              ✉️ help.osaps@bou.ac.bd<br>
+              🕒 Sun–Thu: 9:00 AM – 5:00 PM
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center space-x-2">
+            <a href="tel:01907451612" class="flex-1 py-2 rounded-lg bg-bou-green hover:bg-bou-greenDark text-white text-xs font-bold text-center transition-colors">
+              Call Now
+            </a>
+            <button onclick="copyToClipboard('01907451612', 'Phone copied')" class="px-3 py-2 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50">
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- Central Administration: Registrar -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-600">Central Administration</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">Gazipur Campus</span>
+            </div>
+            <h3 class="font-bold text-base text-bou-navy">Office of the Registrar</h3>
+            <p class="text-xs text-slate-600 mt-1"><strong>T M Ahmed Hussain</strong>, Registrar</p>
+            <div class="text-xs text-slate-500 mt-3 space-y-1">
+              <div>📍 Board Bazar, Gazipur-1705</div>
+              <div>✉️ <a href="mailto:registrar@bou.ac.bd" class="text-bou-green hover:underline">registrar@bou.ac.bd</a></div>
+              <div>☎️ +880-2-9291112</div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <a href="mailto:registrar@bou.ac.bd" class="block w-full py-2 rounded-lg bg-bou-navy hover:bg-bou-navyLight text-white text-xs font-bold text-center transition-colors">
+              Email Registrar
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Regional Resource Centers Directory Grid -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-bold text-base text-bou-navy">12 Regional Centers (RRC Directory)</h3>
+          <span class="text-xs text-slate-500">Official Divisional Centers</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="rc-cards-container">
+          
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Dhaka (RC 11)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-bou-green">Division HQ</span>
+            </div>
+            <p class="text-xs text-slate-600">4/A Govt. Laboratory School Road, Dhanmondi, Dhaka-1205</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 02-9669528 • rc.dhaka@bou.ac.bd</div>
+          </div>
+
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Chattogram (RC 12)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">RC 12</span>
+            </div>
+            <p class="text-xs text-slate-600">Chandgaon Residential Area, Chattogram-4212</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 031-671234 • rc.chattogram@bou.ac.bd</div>
+          </div>
+
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Rajshahi (RC 13)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">RC 13</span>
+            </div>
+            <p class="text-xs text-slate-600">Naldanga Road, Sopura, Rajshahi-6203</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 0721-772345 • rc.rajshahi@bou.ac.bd</div>
+          </div>
+
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Khulna (RC 14)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">RC 14</span>
+            </div>
+            <p class="text-xs text-slate-600">Boyra Main Road, Khulna-9000</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 041-761234 • rc.khulna@bou.ac.bd</div>
+          </div>
+
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Sylhet (RC 15)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">RC 15</span>
+            </div>
+            <p class="text-xs text-slate-600">Pirmoholla, Ambarkhana, Sylhet-3100</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 0821-714522 • rc.sylhet@bou.ac.bd</div>
+          </div>
+
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Barishal (RC 16)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">RC 16</span>
+            </div>
+            <p class="text-xs text-slate-600">Rupatali, Barishal-8200</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 0431-2174312 • rc.barishal@bou.ac.bd</div>
+          </div>
+
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Rangpur (RC 17)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">RC 17</span>
+            </div>
+            <p class="text-xs text-slate-600">Radhaballabh, Rangpur-5400</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 0521-63456 • rc.rangpur@bou.ac.bd</div>
+          </div>
+
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Mymensingh (RC 18)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">RC 18</span>
+            </div>
+            <p class="text-xs text-slate-600">Maskanda, Mymensingh-2200</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 091-65432 • rc.mymensingh@bou.ac.bd</div>
+          </div>
+
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Bogura (RC 19)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">RC 19</span>
+            </div>
+            <p class="text-xs text-slate-600">Khandar, Bogura-5800</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 051-66789 • rc.bogura@bou.ac.bd</div>
+          </div>
+
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Cumilla (RC 20)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">RC 20</span>
+            </div>
+            <p class="text-xs text-slate-600">Kotbari Road, Cumilla-3500</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 081-67890 • rc.cumilla@bou.ac.bd</div>
+          </div>
+
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Faridpur (RC 21)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">RC 21</span>
+            </div>
+            <p class="text-xs text-slate-600">Goalchamot, Faridpur-7800</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 0631-64567 • rc.faridpur@bou.ac.bd</div>
+          </div>
+
+          <div class="rc-card-item bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-bou-navy">Jashore (RC 22)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-bou-navy">RC 22</span>
+            </div>
+            <p class="text-xs text-slate-600">Chanchra, Jashore-7400</p>
+            <div class="text-xs text-slate-500 font-mono">☎ 0421-67890 • rc.jashore@bou.ac.bd</div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 pointer-events-none space-y-2"></div>
+
+  <!-- Institutional Footer -->
+  <footer class="bg-bou-navy text-white border-t border-bou-navyDark py-8 px-4 mt-12">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center space-x-2">
+          <div class="w-6 h-6 rounded bg-bou-green flex items-center justify-center text-white font-bold text-xs">
+            BOU
+          </div>
+          <span class="font-bold text-sm tracking-tight">Bangladesh Open University Student Companion</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-1 max-w-xl">
+          Independent student utility tool. Official records, examination marks, and admissions belong strictly to Bangladesh Open University.
+        </p>
+      </div>
+
+      <div class="flex items-center space-x-6 text-xs text-slate-400">
+        <a href="https://www.bou.ac.bd" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">BOU Home</a>
+        <a href="https://result.bou.ac.bd" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Results</a>
+        <a href="https://osapsnew.bou.ac.bd" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">OSAPS Login</a>
+        <a href="#contacts" onclick="switchTab('contacts')" class="hover:text-white transition-colors">Directory</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "bou-student-portal",
+  "version": "1.0.0",
+  "description": "Bangladesh Open University Student Portal",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "test": "node test/calculator.test.js"
+  }
+}
