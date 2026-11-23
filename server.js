@@ -123,19 +123,31 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Normalize URL path
-  let reqPath = req.url.split('?')[0];
+  // Normalize URL path safely
+  let reqPath = '/';
+  try {
+    reqPath = decodeURIComponent((req.url || '/').split('?')[0]);
+  } catch {
+    reqPath = '/index.html';
+  }
   if (reqPath === '/' || reqPath === '') {
     reqPath = '/index.html';
   }
 
-  const filePath = path.join(__dirname, 'public', reqPath);
+  const publicDir = path.resolve(__dirname, 'public');
+  const filePath = path.resolve(publicDir, '.' + reqPath);
+
+  if (!filePath.startsWith(publicDir + path.sep) && filePath !== publicDir) {
+    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    res.end('403 Forbidden');
+    return;
+  }
 
   // Check if file exists in public/
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
       // Fallback to public/index.html for single-page routing
-      const indexPath = path.join(__dirname, 'public', 'index.html');
+      const indexPath = path.join(publicDir, 'index.html');
       fs.readFile(indexPath, (readErr, content) => {
         if (readErr) {
           res.writeHead(404, { 'Content-Type': 'text/plain' });
@@ -161,6 +173,10 @@ const server = http.createServer((req, res) => {
       res.end(content);
     });
   });
+});
+
+server.on('error', (err) => {
+  console.error('[BOU Portal] Server error:', err);
 });
 
 server.listen(PORT, HOST, () => {
